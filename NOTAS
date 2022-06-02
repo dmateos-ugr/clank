@@ -1,0 +1,11 @@
+[sensor de lineas1]
+con el azul a la izqd:
+	- izqd: 5v (rojo)
+	- medio: entrada arduino, 10k ohms y tierra (blanco)
+	- derecha: 180 ohms (220 en nuestro caso) y tierra (naranja)
+
+[sensor de lineas2]
+con el azul a la izqd:
+	- izqd: 180 ohms (220 en nuestro caso) y tierra (naranja)
+	- medio: entrada arduino, 10k ohms y tierra (blanco)
+	- derecha: 5v (rojo)
