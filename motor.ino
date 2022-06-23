@@ -16,9 +16,7 @@ Motor::Motor(uint8_t pin_velocidad, uint8_t pin_sentido1, uint8_t pin_sentido2)
 }
 
 void Motor::update_velocidad() {
-	uint8_t valor_analog = m_velocidad;
-	Serial.print("velocidad:");
-	Serial.println(valor_analog*m_encendido);
+	uint8_t valor_analog = map(m_velocidad, 0, 100, 0, 255);
 	analogWrite(m_pin_velocidad, valor_analog*m_encendido);
 }
 
@@ -45,4 +43,8 @@ void Motor::encender() {
 void Motor::apagar() {
 	m_encendido = false;
 	update_velocidad();
+}
+
+bool Motor::encendido() const {
+	return m_encendido;
 }

@@ -10,8 +10,8 @@
 #define PIN_MOTOR_IZQ_SENTIDO1 5
 #define PIN_MOTOR_IZQ_SENTIDO2 4
 #define PIN_SENSOR_LINEA1 A0
-// #define PIN_SENSOR_LINEA2 A0
-#define PIN_SENSOR_DISTANCIA 3
+#define PIN_SENSOR_LINEA2 A1
+#define PIN_SENSOR_DISTANCIA 2
 
 // Motor motor_izq(PIN_MOTOR_IZQ_VELOCIDAD, PIN_MOTOR_IZQ_SENTIDO1, PIN_MOTOR_IZQ_SENTIDO2);
 // Motor motor_der(PIN_MOTOR_DER_VELOCIDAD, PIN_MOTOR_DER_SENTIDO1, PIN_MOTOR_DER_SENTIDO2);
@@ -19,22 +19,18 @@ Motores motores(PIN_MOTOR_IZQ_VELOCIDAD, PIN_MOTOR_IZQ_SENTIDO1, PIN_MOTOR_IZQ_S
                 PIN_MOTOR_DER_VELOCIDAD, PIN_MOTOR_DER_SENTIDO1, PIN_MOTOR_DER_SENTIDO2);
 
 SensorLinea sensor_linea1(PIN_SENSOR_LINEA1);
-// SensorLinea sensor_linea2(PIN_SENSOR_LINEA2);
+SensorLinea sensor_linea2(PIN_SENSOR_LINEA2);
 
 SensorDistancia sensor_distancia(PIN_SENSOR_DISTANCIA);
 
-bool en_linea() {
-	// return sensor_linea1.en_linea() || sensor_linea2.en_linea();
-}
-
 void setup_prueba_motores() {
-	motores.set_velocidad(50);
+	motores.set_velocidad(100);
 }
 
 void setup()
 {
 	Serial.begin(9600);
-	// setup_prueba_motores();
+	setup_prueba_motores();
 }
 
 void prueba_motores() {
@@ -52,7 +48,6 @@ void prueba_motores() {
 }
 
 void prueba_sensor_linea() {
-	// Serial.println(en_linea());
 	Serial.println(sensor_linea1.en_linea());
 	delay(1000);
 }
@@ -64,9 +59,31 @@ void prueba_sensor_distancia() {
 
 void loop()
 {
+	// if (sensor_linea1.en_linea()) {
+	// 	Serial.println("1 en linea");
+	// }
+
+	// if (sensor_linea2.en_linea()) {
+	// 	Serial.println("2 en linea");
+	// }
+
 	// Serial.println("hola mundo");
 
-	// prueba_motores();
+	prueba_motores();
 	// prueba_sensor_linea();
-	prueba_sensor_distancia();
+	// prueba_sensor_distancia();
+
+	// Ejemplo mantenerse a distancia
+	// long distancia = sensor_distancia.distancia();
+	// if (distancia < 30) {
+	// 	motores.set_direccion(Motores::Backwards);
+	// 	motores.encender();
+	// } else if (30 <= distancia && distancia <= 35) {
+	// 	motores.apagar();
+	// } else if (35 < distancia) {
+	// 	motores.set_direccion(Motores::Forwards);
+	// 	motores.encender();
+	// }
+
+	delay(1000);
 }

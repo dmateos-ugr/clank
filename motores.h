@@ -15,9 +15,10 @@ class Motores {
 			Backwards,
 		};
 		void set_direccion(Direccion direccion);
-		void set_velocidad(uint8_t velocidad);
+		void set_velocidad(uint8_t velocidad); // velocidad entre 0 y 100
 		void encender();
 		void apagar();
+		bool encendidos() const;
 
 	private:
 		Motor m_motor_izq;

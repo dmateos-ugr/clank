@@ -9,9 +9,10 @@ class Motor {
 		};
 		Motor(uint8_t pin_velocidad, uint8_t pin_sentido1, uint8_t pin_sentido2);
 		void set_sentido(SentidoGiro sentido);
-		void set_velocidad(uint8_t velocidad);
+		void set_velocidad(uint8_t velocidad); // velocidad entre 0 y 100
 		void encender();
 		void apagar();
+		bool encendido() const;
 
 	private:
 		uint8_t m_pin_velocidad, m_pin_sentido1, m_pin_sentido2;

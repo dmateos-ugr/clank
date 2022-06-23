@@ -11,7 +11,7 @@ class SensorLinea {
 
 		bool en_linea() {
 			int value = analogRead(m_pin);
-			Serial.println(value);
+			// Serial.println(value);
 			return analogRead(m_pin) < 100;
 		}
 

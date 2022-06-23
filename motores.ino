@@ -46,3 +46,7 @@ void Motores::apagar() {
 	m_motor_der.apagar();
 	m_motor_izq.apagar();
 }
+
+bool Motores::encendidos() const {
+	return m_motor_der.encendido() && m_motor_izq.encendido();
+}
