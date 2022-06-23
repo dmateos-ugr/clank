@@ -9,8 +9,8 @@
 #define PIN_MOTOR_DER_SENTIDO2 6
 #define PIN_MOTOR_IZQ_SENTIDO1 5
 #define PIN_MOTOR_IZQ_SENTIDO2 4
-#define PIN_SENSOR_LINEA1 A0
-#define PIN_SENSOR_LINEA2 A1
+#define PIN_SENSOR_LINEA_ATRAS A0
+#define PIN_SENSOR_LINEA_DELANTE A1
 #define PIN_SENSOR_DISTANCIA 2
 
 // Motor motor_izq(PIN_MOTOR_IZQ_VELOCIDAD, PIN_MOTOR_IZQ_SENTIDO1, PIN_MOTOR_IZQ_SENTIDO2);
@@ -18,8 +18,8 @@
 Motores motores(PIN_MOTOR_IZQ_VELOCIDAD, PIN_MOTOR_IZQ_SENTIDO1, PIN_MOTOR_IZQ_SENTIDO2,
                 PIN_MOTOR_DER_VELOCIDAD, PIN_MOTOR_DER_SENTIDO1, PIN_MOTOR_DER_SENTIDO2);
 
-SensorLinea sensor_linea1(PIN_SENSOR_LINEA1);
-SensorLinea sensor_linea2(PIN_SENSOR_LINEA2);
+SensorLinea sensor_linea_atras(PIN_SENSOR_LINEA_ATRAS);
+SensorLinea sensor_linea_delante(PIN_SENSOR_LINEA_DELANTE);
 
 SensorDistancia sensor_distancia(PIN_SENSOR_DISTANCIA);
 
@@ -48,7 +48,7 @@ void prueba_motores() {
 }
 
 void prueba_sensor_linea() {
-	Serial.println(sensor_linea1.en_linea());
+	Serial.println(sensor_linea_atras.en_linea());
 	delay(1000);
 }
 
@@ -59,17 +59,22 @@ void prueba_sensor_distancia() {
 
 void loop()
 {
-	// if (sensor_linea1.en_linea()) {
-	// 	Serial.println("1 en linea");
+	
+	if (!sensor_linea_delante.en_linea()) {
+		motores.encender();
+		motores.set_direccion(Motores::Forwards);
+	}
+	else{
+		motores.apagar();
+	}
+
+	// if (!sensor_linea_delante.en_linea()) {
+	// 	motores.set_direccion(Motores::Backwards);	
 	// }
 
-	// if (sensor_linea2.en_linea()) {
-	// 	Serial.println("2 en linea");
-	// }
+	Serial.println("===============================");
 
-	// Serial.println("hola mundo");
-
-	prueba_motores();
+	// prueba_motores();
 	// prueba_sensor_linea();
 	// prueba_sensor_distancia();
 
@@ -85,5 +90,5 @@ void loop()
 	// 	motores.encender();
 	// }
 
-	delay(1000);
+	delay(10);
 }
