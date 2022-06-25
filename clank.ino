@@ -27,10 +27,21 @@ void setup_prueba_motores() {
 	motores.set_velocidad(100);
 }
 
+void prueba_sensor_linea() {
+	Serial.println(sensor_linea_atras.en_linea());
+	delay(1000);
+}
+
+void prueba_sensor_distancia() {
+	Serial.println(sensor_distancia.distancia());
+	// delay(1000);
+}
+
 void setup()
 {
 	Serial.begin(9600);
-	setup_prueba_motores();
+	motores.set_velocidad(100);
+	motores.encender();
 }
 
 void prueba_motores() {
@@ -47,32 +58,25 @@ void prueba_motores() {
 	delay(3000);
 }
 
-void prueba_sensor_linea() {
-	Serial.println(sensor_linea_atras.en_linea());
-	delay(1000);
-}
 
-void prueba_sensor_distancia() {
-	Serial.println(sensor_distancia.distancia());
-	delay(1000);
-}
+
 
 void loop()
 {
 	
-	if (!sensor_linea_delante.en_linea()) {
-		motores.encender();
-		motores.set_direccion(Motores::Forwards);
-	}
-	else{
-		motores.apagar();
-	}
+	// if (!sensor_linea_delante.en_linea()) {
+	// 	motores.encender();
+	// 	motores.set_direccion(Motores::Forwards);
+	// }
+	// else{
+	// 	motores.apagar();
+	// }
 
 	// if (!sensor_linea_delante.en_linea()) {
 	// 	motores.set_direccion(Motores::Backwards);	
 	// }
 
-	Serial.println("===============================");
+	
 
 	// prueba_motores();
 	// prueba_sensor_linea();
@@ -89,6 +93,24 @@ void loop()
 	// 	motores.set_direccion(Motores::Forwards);
 	// 	motores.encender();
 	// }
+
+	if(sensor_linea_atras.en_linea()){
+		motores.set_direccion(Motores::Forwards);
+		Serial.println("LINEA ATRAS");
+	}
+	else if(sensor_linea_delante.en_linea()){
+		motores.set_direccion(Motores::Backwards);
+		Serial.println("LINEA DELANTE");
+	}
+	else if(sensor_distancia.distancia() < 50){
+		motores.set_direccion(Motores::Forwards);
+		Serial.println("PERSEGUIR");
+	}
+	else{
+		motores.set_direccion(Motores::Left);
+		Serial.println("GIRAR");
+	}
+
 
 	delay(10);
 }
